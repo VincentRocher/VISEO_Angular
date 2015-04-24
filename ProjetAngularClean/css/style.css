@@ -1,0 +1,40 @@
+
+a{
+    text-decoration:none;
+    color:black;
+}
+.canClick
+{
+    cursor: pointer;
+
+}
+.finish span
+{
+    color:deepskyblue ;
+}
+.isTrue
+{
+    color:limegreen ;
+}
+.selected
+{
+    color:red ;
+}
+.create
+{
+    background-color:forestgreen;
+
+}
+.delete
+{
+    background-color:red;
+}
+.edit
+{
+    background-color:yellow;
+}
+.inscriptionLogs span
+{
+    width:200px;
+    display:block;
+}
