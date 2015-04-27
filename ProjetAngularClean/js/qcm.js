@@ -133,6 +133,7 @@ angular.module('QCM',['ngResource','ngRoute'])
         }
         self.inscription = function()                                           // inscription
         {
+            console.log(self.utilisateurIns.Name);
             $http.post("./rest/User", self.utilisateurIns).then(
                 function(responseIns)
                 {
@@ -147,7 +148,10 @@ angular.module('QCM',['ngResource','ngRoute'])
 
                 },
                 function(errResponseIns)
-                {}
+                {
+                    console.log("errorPost");
+
+                }
 
 
             );
@@ -331,19 +335,25 @@ angular.module('QCM',['ngResource','ngRoute'])
         self.RepQuest=sharedData.get('RepQuest');
         self.connectedUserId=sharedData.get('userId');
 
+        self.evaluate = function() {
 
-        $http.post("./rest/QCMList/" + $routeParams.qcmId+ "/ScoreQCM", {'answers':self.RepQuest, 'userId':self.connectedUserId}).then(
-            function (response) {
-                self.score = response.data;
-            },
-            function (errResponse) {
-                console.log(errResponse.data);
-                console.error("error while fetching score");
-            })
+            $http.post("./rest/QCMList/" + $routeParams.qcmId + "/ScoreQCM", {
+                'answers': self.RepQuest,
+                'userId': self.connectedUserId
+            }).then(
+                function (response) {
+                    self.score = response.data;
+                },
+                function (errResponse) {
+                    console.log(errResponse.data);
+                    console.error("error while fetching score");
+                })
+        }
+        self.evaluate();
     }
 
     ])
-    .controller('loginController',['$scope','$http','$routeParams','sharedData','$location',  function($scope, $http,$routeParams,sharedData, $location, loaded ) {
+    .controller('loginController',['$http','$routeParams','sharedData','$location',  function( $http,$routeParams,sharedData, $location, loaded ) {
         var self=this;
         self.checkLogs = function()
         {

@@ -2,6 +2,7 @@
 // Generated on %DATE%
 
 module.exports = function(config) {
+  'use strict';
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -15,7 +16,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './js/angular.js',
+      './node_modules/angular/angular.js',
       './node_modules/angular-mocks/angular-mocks.js' ,
       './js/angular-resource.js',
       './js/angular-route.js',
