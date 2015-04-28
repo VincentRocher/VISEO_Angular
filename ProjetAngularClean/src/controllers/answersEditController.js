@@ -6,14 +6,14 @@ app
     {
         var self = this;
         self.mem = sharedData.get('loggedAs');
-        self.evaluate1 = function() {
+        self.logged = function() {
             var self = this;
             if (sharedData.get('loggedAs') != "admin")
                 $location.path("/index");
             self.actualQcm = sharedData.get('actualQcm');
             self.actualQuestion = sharedData.get('actualQuestion');
         }
-        self.evaluate1();
+        self.logged();
         self.back = function()
         {
             $location.path("/edit/qcm/"+$routeParams.qcmId);

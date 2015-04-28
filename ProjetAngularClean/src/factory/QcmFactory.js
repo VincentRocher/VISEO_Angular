@@ -1,6 +1,6 @@
 app
 .factory('QcmFactory',['$resource',function($resource){
-        return $resource('/rest/QCMList/:qcmId',
+        return $resource('../rest/QCMList/:qcmId',
             {qcmId:"@qcmId"}
         );
 

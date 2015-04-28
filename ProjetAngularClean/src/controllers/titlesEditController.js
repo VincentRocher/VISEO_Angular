@@ -2,7 +2,7 @@ app
     .controller('titlesEditController', ['$scope','$http','QcmFactory','$routeParams','sharedData','$location','$route',  function($scope, $http,QcmFactory,$routeParams,sharedData, $location,$route, loaded  ) {
         var self = this;
         self.mem = sharedData.get('loggedAs');
-        self.evaluate1 = function() {
+        self.logged = function() {
 
 
             if (sharedData.get('loggedAs') != "admin")
@@ -11,7 +11,7 @@ app
             $scope.qcmTable = sharedData.get('qcmTable');
             sharedData.store('qcmTable', $scope.qcmTable);
         }
-        self.evaluate1();
+        self.logged();
         self.new = function()                                           // Edition------------------------------
         {self.editedQcm="eeeeeee";
             self.newQCM = new QcmFactory();

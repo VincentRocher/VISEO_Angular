@@ -385,7 +385,7 @@ app.delete('/rest/QCMList/:qcmId/QuesList/:questionId',function(req,res)
 
 });
 app.post('/rest/QCMList/:qcmId/QuesListe', function(req,res) {
-    qcmDBB.update({id:req.params.qcmId}, {$push:{'questions':{"Titre":"teeeeest"}}},{safe: true, upsert:true}, function (err) {
+    qcmDBB.update({id:req.params.qcmId}, {$push:{'questions':{"Titre":req.body.Titre}}},{safe: true, upsert:true}, function (err) {
 
         if (!err) {
             console.log("save new ok");

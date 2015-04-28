@@ -3,9 +3,9 @@ app
         var self=this;
         self.checkLogs = function()
         {
-
             if(self.user.login=="admin" && self.user.pwd=="VISEO")
             {
+
                 sharedData.store('loggedAs', "admin");
                 $location.path("/edit/index");
             }
