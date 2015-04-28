@@ -133,7 +133,7 @@ angular.module('QCM',['ngResource','ngRoute'])
         }
         self.inscription = function()                                           // inscription
         {
-            console.log(self.utilisateurIns.Name);
+
             $http.post("./rest/User", self.utilisateurIns).then(
                 function(responseIns)
                 {
@@ -171,8 +171,8 @@ angular.module('QCM',['ngResource','ngRoute'])
             }
             self.goQcm = function(id)
             {
+                if(!self.qcm)
                 self.qcm = sharedData.get("qcm");
-                console.log(self.qcm);
                 if(self.qcm!=undefined && self.qcm[id]!=undefined)
                 {
                     $location.path("/qcm/"+id+"/numq/0");
@@ -214,7 +214,8 @@ angular.module('QCM',['ngResource','ngRoute'])
         {
             if(!self.qcm || !self.qcm[self.actualQcm.id]) {
                 if(!self.actualQuestion.Repondu) {
-                    if (self.actualQuestion.reponses[idAns]) {
+                    if (self.actualQuestion.reponses[idAns] != undefined) {
+
                         self.RepQuest[self.actualQuestion.id]=idAns;
                         sharedData.store('RepQuest', self.RepQuest);
                         var nbRep = 0;
@@ -226,6 +227,10 @@ angular.module('QCM',['ngResource','ngRoute'])
                         if(nbRep==self.actualQcm.questions.length) {
                             self.qcmComplete = true;
                         }
+                    }
+                    if(self.selection == undefined)
+                    {
+                        self.selection = [];
                     }
                     if(self.selection[self.actualQcm.id] == undefined)
                     {
@@ -409,7 +414,7 @@ angular.module('QCM',['ngResource','ngRoute'])
             $route.reload();
 
         };
-        self.save=function( id, type)                                           // Edition------------------------------
+        self.save=function( id)                                           // Edition------------------------------
         {
             QcmFactory.get({qcmId: id})
                 .$promise.then(function (qcm) {
@@ -510,8 +515,13 @@ angular.module('QCM',['ngResource','ngRoute'])
 
         }
         self.goToQuestion = function(id)
+<<<<<<< HEAD
         {
             $location.path('/edit/qcm/'+$routeParams.qcmId+"/question/"+id);
+=======
+         {
+         $location.path('/edit/qcm/'+$routeParams.qcmId+"/question/"+id);
+>>>>>>> 095185f8091c63e5396ba0aebabfa81b9b82d128
 
         }
 
@@ -546,6 +556,7 @@ angular.module('QCM',['ngResource','ngRoute'])
                     isTrue:false
                 }
         }
+<<<<<<< HEAD
         self.save = function(){
             var saveLength = self.actualQuestion.reponses.length;
             var recul = 0;
@@ -576,6 +587,8 @@ angular.module('QCM',['ngResource','ngRoute'])
 
         }
 
+=======
+>>>>>>> 095185f8091c63e5396ba0aebabfa81b9b82d128
         self.deleteTrue = function()
         {
             console.log("Delete start");
