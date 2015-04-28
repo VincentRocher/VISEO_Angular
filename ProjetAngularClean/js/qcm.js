@@ -36,7 +36,7 @@ angular.module('QCM',['ngResource','ngRoute'])
 
                         })
                     } ]
-                    }
+                }
             })
             .when('/qcm/:qcmId/numq/:questionId',{
                 templateUrl:'./view/questions.html',
@@ -182,16 +182,16 @@ angular.module('QCM',['ngResource','ngRoute'])
                     $location.path("/inscription/"+id);
 
                 }
-             }
+            }
             $scope.qcmTable=sharedData.get('qcmTable');
             self.qcm=sharedData.get('qcm');
             if($scope.qcmTable)
-            for(var i = 0; i<$scope.qcmTable.length;i++){
-                if(self.qcm!=undefined && self.qcm[i]!=undefined && self.qcm[i].cleared == true)
-                {
-                    $scope.qcmTable[i].finish=true;
+                for(var i = 0; i<$scope.qcmTable.length;i++){
+                    if(self.qcm!=undefined && self.qcm[i]!=undefined && self.qcm[i].cleared == true)
+                    {
+                        $scope.qcmTable[i].finish=true;
+                    }
                 }
-            }
 
         }])
     .controller('questionController',['$scope','$http','$routeParams','sharedData','$location',  function($scope, $http,$routeParams,sharedData, $location )
@@ -262,7 +262,7 @@ angular.module('QCM',['ngResource','ngRoute'])
             if(self.qcmComplete)
             {
                 if(self.qcm==undefined)
-                self.qcm = [];
+                    self.qcm = [];
                 self.qcm[self.actualQcm.id]={cleared:true};
                 sharedData.store('qcm', self.qcm);
                 sharedData.store('actualQuestion', []);
@@ -371,13 +371,20 @@ angular.module('QCM',['ngResource','ngRoute'])
         }
     }])
     .controller('titlesEditController', ['$scope','$http','QcmFactory','$routeParams','sharedData','$location','$route',  function($scope, $http,QcmFactory,$routeParams,sharedData, $location,$route, loaded  ) {
-        if(sharedData.get('loggedAs')!="admin")
-            $location.path("/index");
         var self = this;
-        $scope.qcmTable=sharedData.get('qcmTable');
-        sharedData.store('qcmTable', $scope.qcmTable);
+        self.mem = sharedData.get('loggedAs');
+        self.evaluate1 = function() {
+
+
+            if (sharedData.get('loggedAs') != "admin")
+                $location.path("/index");
+
+            $scope.qcmTable = sharedData.get('qcmTable');
+            sharedData.store('qcmTable', $scope.qcmTable);
+        }
+        self.evaluate1();
         self.new = function()                                           // Edition------------------------------
-        {
+        {self.editedQcm="eeeeeee";
             self.newQCM = new QcmFactory();
             if(self.createQcmInput)
                 self.newQCM.Titre = self.createQcmInput;
@@ -391,7 +398,7 @@ angular.module('QCM',['ngResource','ngRoute'])
 
         };
         self.delete = function(id, item)                                     // Edition------------------------------
-        {
+        {self.editedQcm="eeeeeee";
             if(self.actualQcm && self.actualQcm.id==id)
             {
                 delete(self.actualQcm);
@@ -423,7 +430,7 @@ angular.module('QCM',['ngResource','ngRoute'])
         };
         self.cancel= function(id)
         {
-
+            self.editedQcm="eeeeeee";
             self.editedQcm[id].Titre="";
             delete(self.editedQcm);
 
@@ -437,12 +444,16 @@ angular.module('QCM',['ngResource','ngRoute'])
 
     }])
     .controller('questionsEditController',['$scope','$http','QuesFactory','$routeParams','sharedData','$location','$route',  function($scope, $http,QuesFactory,$routeParams,sharedData, $location,$route, loadedQues  ) {
-    var self = this;
-        if(sharedData.get('loggedAs')!="admin")
-            $location.path("/index");
-        $scope.qcmTable=sharedData.get('qcmTable');
-        self.actualQcm = sharedData.get('actualQcm');
+        var self = this;
+        self.mem = sharedData.get('loggedAs');
+        self.evaluate1 = function() {
 
+            if (sharedData.get('loggedAs') != "admin")
+                $location.path("/index");
+            $scope.qcmTable = sharedData.get('qcmTable');
+            self.actualQcm = sharedData.get('actualQcm');
+        }
+        self.evaluate1();
         self.back= function(){
 
             $location.path('/edit/index');
@@ -468,7 +479,7 @@ angular.module('QCM',['ngResource','ngRoute'])
         self.cancel = function(id)
         {
             if(self.questionEdit)
-            self.questionEdit[id]="";
+                self.questionEdit[id]="";
             delete(self.editedQuestion);
         }
         self.delete = function(id)
@@ -484,34 +495,39 @@ angular.module('QCM',['ngResource','ngRoute'])
         }
         self.save = function(id)
         {
-                QuesFactory.get({qcmId: self.actualQcm.id, questionId: id})
-                    .$promise.then(function (ques) {
-                        if(self.questionEdit && self.questionEdit[id]) {
-                            ques.Titre = self.questionEdit[id].Titre;
-                            ques.$save({qcmId: self.actualQcm.id , questionId: id});
-                            self.questionEdit[id].Titre = "";
-                        }
-                        delete(self.editedQuestion);
-                        $route.reload();
+            QuesFactory.get({qcmId: self.actualQcm.id, questionId: id})
+                .$promise.then(function (ques) {
+                    if(self.questionEdit && self.questionEdit[id]) {
+                        ques.Titre = self.questionEdit[id].Titre;
+                        ques.$save({qcmId: self.actualQcm.id , questionId: id});
+                        self.questionEdit[id].Titre = "";
                     }
-                );
+                    delete(self.editedQuestion);
+                    $route.reload();
+                }
+            );
 
 
         }
         self.goToQuestion = function(id)
         {
-         $location.path('/edit/qcm/'+$routeParams.qcmId+"/question/"+id);
+            $location.path('/edit/qcm/'+$routeParams.qcmId+"/question/"+id);
 
         }
 
     }])
     .controller('answersEditController',['$scope','$http','QuesFactory','$routeParams','sharedData','$location','$route',  function($scope, $http,QuesFactory,$routeParams,sharedData, $location,$route, loadedQues)
     {
-        var self=this;
-        if(sharedData.get('loggedAs')!="admin")
-            $location.path("/index");
-        self.actualQcm = sharedData.get('actualQcm');
-        self.actualQuestion = sharedData.get('actualQuestion');
+        var self = this;
+        self.mem = sharedData.get('loggedAs');
+        self.evaluate1 = function() {
+            var self = this;
+            if (sharedData.get('loggedAs') != "admin")
+                $location.path("/index");
+            self.actualQcm = sharedData.get('actualQcm');
+            self.actualQuestion = sharedData.get('actualQuestion');
+        }
+        self.evaluate1();
         self.back = function()
         {
             $location.path("/edit/qcm/"+$routeParams.qcmId);
@@ -524,52 +540,42 @@ angular.module('QCM',['ngResource','ngRoute'])
         self.new = function()
         {
             if(self.createAnswerEdit)
-            self.actualQuestion.reponses[self.actualQuestion.reponses.length]=
-            {  id:self.actualQuestion.reponses.length,
-                Titre:self.createAnswerEdit,
-                isTrue:false
-            }
+                self.actualQuestion.reponses[self.actualQuestion.reponses.length]=
+                {  id:self.actualQuestion.reponses.length,
+                    Titre:self.createAnswerEdit,
+                    isTrue:false
+                }
         }
         self.save = function(){
-                var saveLength = self.actualQuestion.reponses.length;
-                var recul = 0;
-                for (var i = 0; i < saveLength; i++) {
-                    if ( self.repDel && self.repDel[i] == true) {
-                        self.actualQuestion.reponses.splice(i - recul, 1);
-                        recul++;
-                        delete(self.repDel[i]);
-                    }
-                    else
-                    {
-                        if(self.repEdit && self.repEdit[i])
-                        self.actualQuestion.reponses[i-recul].Titre=self.repEdit[i].Titre;
-
-                    }
-                }
-                for (var j = 0; j < self.actualQuestion.reponses.length; j++) {
-                    self.actualQuestion.reponses[j].id = j;
-                }
-
-                QuesFactory.get({qcmId: $routeParams.qcmId, questionId: $routeParams.questionId})
-                    .$promise.then(function (ques) {
-                            ques.reponses = self.actualQuestion.reponses;
-                            ques.$save({qcmId: $routeParams.qcmId, questionId: $routeParams.questionId});
-                            $route.reload();
-
-                    });
-
-        }
-        self.deleteFalse = function(){
             var saveLength = self.actualQuestion.reponses.length;
             var recul = 0;
             for (var i = 0; i < saveLength; i++) {
-                if (self.repDel && self.repDel[i] == true) {
+                if ( self.repDel && self.repDel[i] == true) {
                     self.actualQuestion.reponses.splice(i - recul, 1);
                     recul++;
                     delete(self.repDel[i]);
                 }
+                else
+                {
+                    if(self.repEdit && self.repEdit[i])
+                        self.actualQuestion.reponses[i-recul].Titre=self.repEdit[i].Titre;
+
+                }
             }
+            for (var j = 0; j < self.actualQuestion.reponses.length; j++) {
+                self.actualQuestion.reponses[j].id = j;
+            }
+
+            QuesFactory.get({qcmId: $routeParams.qcmId, questionId: $routeParams.questionId})
+                .$promise.then(function (ques) {
+                    ques.reponses = self.actualQuestion.reponses;
+                    ques.$save({qcmId: $routeParams.qcmId, questionId: $routeParams.questionId});
+                    $route.reload();
+
+                });
+
         }
+
         self.deleteTrue = function()
         {
             console.log("Delete start");
