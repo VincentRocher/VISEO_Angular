@@ -6,7 +6,7 @@ describe('loginController', function() {
         $controller=_$controller_;
         input = "Jean";
     }))
-
+$
     it("minlength in login less than 10",function(){
         var ctrl = $controller("loginController");
         ctrl.user=[];
@@ -254,13 +254,13 @@ describe('Test All Controller', function() {
     })
     it("Test IV.0.1: answersEditControllerback: should redirect to /edit/index", function(){
         $loc.path("./splotch");
-        answer = $ctrl('answersEditController', {$scope: $scope, $routeParams:{qcmId : 0}});
+        answer = ctrl('answersEditController', {$scope: $scope, $routeParams:{qcmId : 0}});
         answer.back();
         expect($loc.path()).toBe("/edit/qcm/0");
     })
     it("Test IV.0.2: answersEditController back: should redirect to /edit/index", function(){
         $loc.path("./splotch");
-        login = $ctrl('questionsEditController', {$scope: $scope});
+        login = ctrl('questionsEditController', {$scope: $scope});
         login.back();
         expect($loc.path()).toBe("/edit/index");
     })
