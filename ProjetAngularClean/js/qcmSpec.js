@@ -207,6 +207,78 @@ describe('Inscription et Score controller', function(){
             //expect(result).toBe("validated");
 
         })
+
+        it("Should create Answer temporarily", function(){
+            var answer = $ctrl('answersEditController', {$scope: $scope, $routeParams:{qcmId : 0}});
+            httpback.whenGET("./rest/QCMList").respond({value: "test"});
+            httpback.whenGET("./view/titres.html").respond({value: "test"});
+            answer.createQuestionInput={};
+            answer.createAnswerEdit = "test";
+            answer.actualQuestion = {};
+            answer.actualQuestion.reponses = [1,2,4];
+
+            var last = answer.actualQuestion;
+            answer.new();
+            //inscript.inscription().then(function(res){result = res;})
+            httpback.flush();
+            //console.log(score.score.value);
+            expect(answer.actualQuestion.reponses).toBeDefined();
+            expect(answer.actualQuestion.reponses[3]).toBeDefined();
+            expect(answer.actualQuestion.reponses[3].Titre).toBe("test");
+            //expect(result).toBe("validated");
+
+        })
+        it("Should Delete Answer", function(){
+            httpback.expectPOST("./rest/QCMList/0/QuesList/0/deleteAns").respond({value: "validated"});
+            httpback.whenGET("./rest/QCMList").respond({value: "test"});
+            httpback.whenGET("./view/titres.html").respond({value: "test"});
+            var answer = $ctrl('answersEditController', {$scope: $scope, $routeParams:{qcmId : 0, questionId:0}});
+            answer.RepQuest = [0,1,2];
+            answer.repDel = [];
+            answer.repDel[0] = true;
+
+            answer.connectedUserId = "06684867";
+            answer.actualQcm={};
+            answer.actualQcm.id=0;
+            answer.actualQcm.questions=[0,1,4,2,5];
+            answer.actualQuestion = {};
+            answer.actualQuestion.reponses = [1,2,4];
+            var save_length = answer.actualQuestion.reponses.length;
+            answer.deleteTrue(0);
+            //inscript.inscription().then(function(res){result = res;})
+            httpback.flush();
+            //console.log(score.score.value);
+            expect(answer.actualQuestion.reponses.length).toBe(save_length-1);
+            console.log(answer.newQues);
+            //expect(result).toBe("validated");
+
+        })
+        it("Should Edit Question and Answers related to it", function(){
+            httpback.expectGET("/rest/QCMList/0/QuesList").respond({value: "validated"});
+            httpback.expectPOST("/rest/QCMList/0/QuesList").respond({value: "validated"});
+            httpback.whenGET("./rest/QCMList").respond({value: "test"});
+            httpback.whenGET("./view/titres.html").respond({value: "test"});
+            var answer = $ctrl('answersEditController', {$scope: $scope, $routeParams:{qcmId : 0, quesId:0}});
+            answer.RepQuest = [0,1,2];
+            answer.connectedUserId = "06684867";
+            answer.actualQcm={};
+            answer.actualQcm.id=0;
+            answer.actualQcm.questions=[0,1,4,2,5];
+            answer.actualQuestion = {};
+            answer.actualQuestion.reponses = [1,2,4];
+            var save_length = answer.actualQuestion.reponses.length;
+            answer.createAnswerEdit = "test";
+            answer.new();
+            answer.save(0);
+            //inscript.inscription().then(function(res){result = res;})
+            httpback.flush();
+            //console.log(score.score.value);
+            expect(answer.actualQuestion.reponses.length).toBe(save_length+1 );
+
+            //expect(result).toBe("validated");
+
+        })
+
         it("good logs: should redirect to /edit/index", function(){
             $loc.path("./splotch");
             login = $ctrl('loginController', {$scope: $scope});
