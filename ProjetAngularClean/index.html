@@ -1,14 +1,31 @@
 <!DOCTYPE html>
+
+<html ng-app="QCM">
 <head>
     <meta charset="UTF-8">
+    <!-- Vendors -->
+    <script src="./node_modules/angular/angular.js" ></script>
+    <script src="./js/angular-resource.js" ></script>
+    <script src="./js/angular-route.js" ></script>
+    <script src="app.js" ></script>
+    <script type="text/javascript" src="src/route/routing.js"></script>
+    <!-- Services -->
+    <script type="text/javascript" src="src/services/SharedData.js"></script>
+    <script type="text/javascript" src="src/factory/QcmFactory.js"></script>
+    <script type="text/javascript" src="src/factory/QuesFactory.js"></script>
+    <!-- Controllers -->
+    <script type="text/javascript" src="src/controllers/answersEditController.js"></script>
+    <script type="text/javascript" src="src/controllers/inscriptionController.js"></script>
+    <script type="text/javascript" src="src/controllers/loginController.js"></script>
+    <script type="text/javascript" src="src/controllers/questionController.js"></script>
+    <script type="text/javascript" src="src/controllers/questionsEditController.js"></script>
+    <script type="text/javascript" src="src/controllers/scoreController.js"></script>
+    <script type="text/javascript" src="src/controllers/titlesController.js"></script>
+    <script type="text/javascript" src="src/controllers/titlesEditController.js"></script>
+
+    <link rel="stylesheet" href="./css/style.css" />
 </head>
-<html ng-app="QCM">
 <body>
-<script src="./js/node_modules/angular/angular.js" ></script>
-<script src="./js/angular-resource.js" ></script>
-<script src="./js/angular-route.js" ></script>
-<script type="text/javascript" src="./js/qcm.js"></script>
-<link rel="stylesheet" href="./css/style.css" />
 <a href="#/index">Home</a>
 <br/>
 <div ng-view></div>
