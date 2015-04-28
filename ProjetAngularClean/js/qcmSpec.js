@@ -6,7 +6,7 @@ describe('loginController', function() {
         $controller=_$controller_;
         input = "Jean";
     }))
-$
+
     it("minlength in login less than 10",function(){
         var ctrl = $controller("loginController");
         ctrl.user=[];
@@ -114,6 +114,7 @@ describe('Test All Controller', function() {
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
         $httpBackend.whenGET("./view/titres.html").respond({value: "test"});
 
+        expect(mockService.get("MockqcmTable")).toEqual([ 1, 2, 3, 4 ]);
         $scope.qcmTable=mockService.get("MockqcmTable");
 
         // var result = mockUserResource.getUser('test');
@@ -134,6 +135,7 @@ describe('Test All Controller', function() {
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
         $httpBackend.whenGET("./view/titres.html").respond({value: "test"});
 
+        expect(mockService.get("MockqcmTable")).toEqual([ 1, 2, 3, 4 ]);
         $scope.qcmTable=mockService.get("MockqcmTable");
         titleEdit.actualQcm={};
         titleEdit.actualQcm.id=0;
@@ -149,6 +151,8 @@ describe('Test All Controller', function() {
         $httpBackend.whenGET("./rest/QCMList").respond({value: "validated"});
         $httpBackend.expectPOST("/rest/QCMList/1").respond({qcmId: 1});
         $httpBackend.whenGET("./view/titres.html").respond({value: "test"});
+
+        expect(mockService.get("MockqcmTable")).toEqual([ 1, 2, 3, 4 ]);
         $scope.qcmTable=mockService.get("MockqcmTable");
         titleEdit.editedQcm="EDITEEED";
         titleEdit.qcmEdit = [];
@@ -190,11 +194,14 @@ describe('Test All Controller', function() {
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
         $httpBackend.whenGET("./view/titres.html").respond({value: "test"});
 
+        expect(mockService.get("MockqcmTable")).toEqual([ 1, 2, 3, 4 ]);
         $scope.qcmTable=mockService.get("MockqcmTable");
         question.editedQuestion="Add";
+        expect(mockService.get("MockRepQuest")).toEqual([ 0, 1, 2 ]);
         question.RepQuest = mockService.get('MockRepQuest');
         question.actualQcm={};
         question.actualQcm.id=0;
+        expect(mockService.get("actualQcmQuestions")).toEqual( [ 0, 1, 4, 2, 5 ]);
         question.actualQcm.questions= mockService.get('actualQcmQuestions');
         question.createQuestionInput={};
         question.createQuestionInput.Titre = "test";
@@ -218,9 +225,11 @@ describe('Test All Controller', function() {
         $httpBackend.whenGET("./view/titres.html").respond({value: "test"});
 
         question.editedQuestion="Delete";
+        expect(mockService.get("MockRepQuest")).toEqual([ 0, 1, 2 ]);
         question.RepQuest = mockService.get('MockRepQuest');
         question.actualQcm={};
         question.actualQcm.id=0;
+        expect(mockService.get("actualQcmQuestions")).toEqual( [ 0, 1, 4, 2, 5 ]);
         question.actualQcm.questions=mockService.get('actualQcmQuestions');
         question.delete(0);
         $httpBackend.flush();
@@ -241,9 +250,11 @@ describe('Test All Controller', function() {
         question.editedQuestion="Saved";
         question.questionEdit=[];
         question.questionEdit[0]="new question";
+        expect(mockService.get("MockRepQuest")).toEqual([ 0, 1, 2 ]);
         question.RepQuest = mockService.get('MockRepQuest');
         question.actualQcm={};
         question.actualQcm.id=0;
+        expect(mockService.get("actualQcmQuestions")).toEqual( [ 0, 1, 4, 2, 5 ]);
         question.actualQcm.questions=mockService.get('actualQcmQuestions');
 
         question.save(0);
@@ -274,6 +285,7 @@ describe('Test All Controller', function() {
 
         Repons.createAnswerEdit = "test";
         Repons.actualQuestion = {};
+        expect(mockService.get("actualQuestionReponses")).toEqual( [ 1, 2, 4 ]);
         Repons.actualQuestion.reponses = mockService.get('actualQuestionReponses');
 
 
@@ -295,15 +307,18 @@ describe('Test All Controller', function() {
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
         $httpBackend.whenGET("./view/titres.html").respond({value: "test"});
 
+        expect(mockService.get("MockRepQuest")).toEqual([ 0, 1, 2 ]);
         Repons.RepQuest = mockService.get('MockRepQuest');
         Repons.repDel = [];
         Repons.repDel[0] = true;
 
         Repons.actualQcm={};
         Repons.actualQcm.id=0;
+        expect(mockService.get("actualQcmQuestions")).toEqual( [ 0, 1, 4, 2, 5 ]);
         Repons.actualQcm.questions= mockService.get('actualQcmQuestions');
 
         Repons.actualQuestion = {};
+        expect(mockService.get("actualQuestionReponses")).toEqual( [ 1, 2, 4 ]);
         Repons.actualQuestion.reponses = mockService.get('actualQuestionReponses');
 
         var save_length = Repons.actualQuestion.reponses.length;
@@ -325,11 +340,14 @@ describe('Test All Controller', function() {
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
         $httpBackend.whenGET("./view/titres.html").respond({value: "test"});
 
+        expect(mockService.get("MockRepQuest")).toEqual([ 0, 1, 2 ]);
         Repons.RepQuest = mockService.get('MockRepQuest');
         Repons.actualQcm={};
         Repons.actualQcm.id=0;
+        expect(mockService.get("actualQcmQuestions")).toEqual( [ 0, 1, 4, 2, 5 ]);
         Repons.actualQcm.questions= mockService.get('actualQcmQuestions');
         Repons.actualQuestion = {};
+        expect(mockService.get("actualQuestionReponses")).toEqual( [ 1, 2, 4 ]);
         Repons.actualQuestion.reponses = mockService.get('actualQuestionReponses');
         var save_length = Repons.actualQuestion.reponses.length;
         Repons.createAnswerEdit = "test";
