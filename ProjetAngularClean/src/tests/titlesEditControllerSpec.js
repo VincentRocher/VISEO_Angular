@@ -58,7 +58,7 @@ describe('Titles Edit Tests', function() {
         titleEdit.logged();
         $httpBackend.expectPOST("../rest/QCMList").respond({value: "validated"});
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
-        $httpBackend.whenGET("../../view/titres.html").respond({value: "test"});
+        $httpBackend.whenGET("./src/view/titres.html").respond({value: "test"});
 
         expect(mockService.get("MockqcmTable")).toEqual([1, 2, 3, 4]);
         $scope.qcmTable = mockService.get("MockqcmTable");
@@ -79,7 +79,7 @@ describe('Titles Edit Tests', function() {
         titleEdit.logged();
         $httpBackend.expectDELETE("../rest/QCMList/0").respond({value: "validated"});
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
-        $httpBackend.whenGET("../../view/titres.html").respond({value: "test"});
+        $httpBackend.whenGET("./src/view/titres.html").respond({value: "test"});
 
         expect(mockService.get("MockqcmTable")).toEqual([1, 2, 3, 4]);
         $scope.qcmTable = mockService.get("MockqcmTable");
@@ -96,7 +96,7 @@ describe('Titles Edit Tests', function() {
         $httpBackend.whenGET("../rest/QCMList/1").respond({qcmId: 1});
         $httpBackend.whenGET("./rest/QCMList").respond({value: "validated"});
         $httpBackend.expectPOST("../rest/QCMList/1").respond({qcmId: 1});
-        $httpBackend.whenGET("../../view/titres.html").respond({value: "test"});
+        $httpBackend.whenGET("./src/view/titres.html").respond({value: "test"});
 
         expect(mockService.get("MockqcmTable")).toEqual([1, 2, 3, 4]);
         $scope.qcmTable = mockService.get("MockqcmTable");

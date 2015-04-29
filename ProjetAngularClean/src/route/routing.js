@@ -4,7 +4,7 @@ app
     .config(['$routeProvider', function($routeProvider){
         $routeProvider
             .when('/index',{
-                templateUrl:'../../view/titres.html',
+                templateUrl:'./src/view/titres.html',
                 controller:'titlesController as titreCtrl',
                 resolve: {
                     loadedQcmList: ['$http','sharedData', function($http, sharedData){
@@ -17,7 +17,7 @@ app
                 }
             })
             .when('/qcm/:qcmId/numq/:questionId',{
-                templateUrl:'../../view/questions.html',
+                templateUrl:'./src/view/questions.html',
                 controller:'questionController as QuesCtrl',
                 resolve: {
                     loadedQues: ['$http','sharedData','$route', function($http, sharedData, $route){
@@ -32,7 +32,7 @@ app
 
             })
             .when('/inscription/:qcmId',{
-                templateUrl:'../../view/inscription.html',
+                templateUrl:'./src/view/inscription.html',
                 controller:'inscriptionController as InsCtrl',
                 resolve: {
                     loadedQcm: ['$http','sharedData','$route', function($http, sharedData, $route){
@@ -48,17 +48,17 @@ app
 
             })
             .when('/qcm/:qcmId/score',{
-                templateUrl:'../../view/scores.html',
+                templateUrl:'./src/view/scores.html',
                 controller:'scoreController as scoreCtrl'
 
             })
             .when('/login',{
-                templateUrl:'../../view/login.html',
+                templateUrl:'./src/view/login.html',
                 controller:'loginController as logCtrl'
 
             })
             .when('/edit/index',{
-                templateUrl:'../../view/titresEdit.html',
+                templateUrl:'./src/view/titresEdit.html',
                 controller:'titlesEditController as titleEditCtrl',
                 resolve: {
                     loadedQcmList: ['$http','sharedData', function($http, sharedData){
@@ -71,7 +71,7 @@ app
                 }
             })
             .when('/edit/qcm/:qcmId',{
-                templateUrl:'../../view/questionsEdit.html',
+                templateUrl:'./src/view/questionsEdit.html',
                 controller: 'questionsEditController as questionEditCtrl',
                 resolve: {
                     loadedQcm: ['$http','sharedData','$route', function($http, sharedData, $route){
@@ -86,7 +86,7 @@ app
                 }
             })
             .when('/edit/qcm/:qcmId/question/:questionId',{
-                templateUrl : '../../view/answersEdit.html',
+                templateUrl : './src/view/answersEdit.html',
                 controller : "answersEditController as answerEditCtrl",
                 resolve: {
                     loadedQues: ['$http','sharedData','$route', function($http, sharedData, $route){

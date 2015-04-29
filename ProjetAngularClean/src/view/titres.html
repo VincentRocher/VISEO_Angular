@@ -1,0 +1,12 @@
+
+
+<div ng-controller="titlesController as titleCtrl">
+    <a href = "#/login"><button  ng-disabled="indexCtrl.globalInputText" ng-hide="indexCtrl.modeEdition" class="edit">Mode Edition</button></a>
+    <button ng-click="titleCtrl.filter = {}">Tout les QCM</button>
+    <button ng-click="titleCtrl.filter={finish: true}">QCM Répondu</button>
+    <button ng-click="titleCtrl.filter ={finish: undefined}">QCM Non Répondu</button>
+<br/>
+    <div ng-repeat="qcm in qcmTable | filter:titleCtrl.filter" ng-class="courant.qcm[qcm.id]">
+        <a ng-click="titleCtrl.goQcm(qcm.id)" ng-class="titleCtrl.validate(qcm)" class="canClick"><span>{{qcm.Titre}}</span></a>
+    </div>
+</div>

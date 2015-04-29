@@ -53,7 +53,7 @@ describe('Answers Edit Tests', function() {
         Repons.logged();
 
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
-        $httpBackend.whenGET("../../view/titres.html").respond({value: "test"});
+        $httpBackend.whenGET("./src/view/titres.html").respond({value: "test"});
 
         Repons.createAnswerEdit = "test";
         Repons.actualQuestion = {};
@@ -77,7 +77,7 @@ describe('Answers Edit Tests', function() {
 
         $httpBackend.expectPOST("./rest/QCMList/0/QuesList/0/deleteAns").respond({value: "validated"});
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
-        $httpBackend.whenGET("../../view/titres.html").respond({value: "test"});
+        $httpBackend.whenGET("./src/view/titres.html").respond({value: "test"});
 
         expect(mockService.get("MockRepQuest")).toEqual([0, 1, 2]);
         Repons.RepQuest = mockService.get('MockRepQuest');
@@ -110,7 +110,7 @@ describe('Answers Edit Tests', function() {
         $httpBackend.expectGET("../rest/QCMList/0/QuesList").respond({value: "validated"});
         $httpBackend.expectPOST("../rest/QCMList/0/QuesList").respond({value: "validated"});
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
-        $httpBackend.whenGET("../../view/titres.html").respond({value: "test"});
+        $httpBackend.whenGET("./src/view/titres.html").respond({value: "test"});
 
         expect(mockService.get("MockRepQuest")).toEqual([0, 1, 2]);
         Repons.RepQuest = mockService.get('MockRepQuest');

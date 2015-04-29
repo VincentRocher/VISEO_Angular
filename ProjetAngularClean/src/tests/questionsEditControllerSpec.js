@@ -53,7 +53,7 @@ describe('Questions Edit Tests', function() {
 
         $httpBackend.expectPOST("../rest/QCMList/0/QuesList").respond({value: "validated"});
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
-        $httpBackend.whenGET("../../view/titres.html").respond({value: "test"});
+        $httpBackend.whenGET("./src/view/titres.html").respond({value: "test"});
 
         expect(mockService.get("MockqcmTable")).toEqual([1, 2, 3, 4]);
         $scope.qcmTable = mockService.get("MockqcmTable");
@@ -83,7 +83,7 @@ describe('Questions Edit Tests', function() {
 
         $httpBackend.expectDELETE("../rest/QCMList/0/QuesList/0").respond({value: "validated"});
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
-        $httpBackend.whenGET("../../view/titres.html").respond({value: "test"});
+        $httpBackend.whenGET("./src/view/titres.html").respond({value: "test"});
 
         question.editedQuestion = "Delete";
         expect(mockService.get("MockRepQuest")).toEqual([0, 1, 2]);
@@ -106,7 +106,7 @@ describe('Questions Edit Tests', function() {
         $httpBackend.expectGET("../rest/QCMList/0/QuesList/0").respond({value: "validated"});
         $httpBackend.expectPOST("../rest/QCMList/0/QuesList/0").respond({value: "validated"});
         $httpBackend.whenGET("./rest/QCMList").respond({value: "test"});
-        $httpBackend.whenGET("../../view/titres.html").respond({value: "test"});
+        $httpBackend.whenGET("./src/view/titres.html").respond({value: "test"});
 
         question.editedQuestion = "Saved";
         question.questionEdit = [];
